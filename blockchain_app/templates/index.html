@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document Integrity Verification</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+</head>
+<body>
+<section class="section">
+    <div class="container">
+        <h1 class="title">Blockchain Document Verification</h1>
+        <p class="subtitle">Upload a document to store its hash on the blockchain or verify its existence.</p>
+
+        <div class="columns">
+            <div class="column">
+                <div class="box">
+                    <h2 class="title is-4">Submit Document</h2>
+                    <form action="/upload" method="post" enctype="multipart/form-data">
+                        <div class="field">
+                            <label class="label">Document File</label>
+                            <div class="control">
+                                <input class="input" type="file" name="document" required>
+                            </div>
+                        </div>
+                        <div class="control">
+                            <button class="button is-primary" type="submit">Store Document Hash</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="column">
+                <div class="box">
+                    <h2 class="title is-4">Verify Document</h2>
+                    <form action="/verify" method="post" enctype="multipart/form-data">
+                        <div class="field">
+                            <label class="label">Document File</label>
+                            <div class="control">
+                                <input class="input" type="file" name="document" required>
+                            </div>
+                        </div>
+                        <div class="control">
+                            <button class="button is-link" type="submit">Verify Document</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="box">
+            <h2 class="title is-4">Recent Blocks</h2>
+            <div class="table-container">
+                <table class="table is-fullwidth is-striped">
+                    <thead>
+                    <tr>
+                        <th>Index</th>
+                        <th>Timestamp</th>
+                        <th>Document Hash</th>
+                        <th>Previous Hash</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for block in chain|reverse %}
+                        <tr>
+                            <td>{{ block.index }}</td>
+                            <td>{{ block.timestamp | float | round(3) }}</td>
+                            <td><code>{{ block.document_hash }}</code></td>
+                            <td><code>{{ block.previous_hash[:16] }}...</code></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
