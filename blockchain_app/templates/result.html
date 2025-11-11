@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Verification Result</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+</head>
+<body>
+<section class="section">
+    <div class="container">
+        <h1 class="title">Verification Result</h1>
+        <div class="notification {{ 'is-success' if success else 'is-danger' }}">
+            {{ message }}
+        </div>
+        {% if document_hash %}
+            <p><strong>Document Hash:</strong> <code>{{ document_hash }}</code></p>
+        {% endif %}
+        {% if timestamp %}
+            <p><strong>Timestamp:</strong> {{ timestamp }}</p>
+        {% endif %}
+        {% if block %}
+            <h2 class="title is-5">Block Details</h2>
+            <ul>
+                <li><strong>Index:</strong> {{ block.index }}</li>
+                <li><strong>Nonce:</strong> {{ block.nonce }}</li>
+                <li><strong>Previous Hash:</strong> <code>{{ block.previous_hash }}</code></li>
+            </ul>
+        {% endif %}
+        <a class="button is-link" href="/">Back</a>
+    </div>
+</section>
+</body>
+</html>
